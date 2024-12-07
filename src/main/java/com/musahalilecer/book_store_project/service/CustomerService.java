@@ -4,6 +4,7 @@ import com.musahalilecer.book_store_project.dto.CustomerDto;
 import com.musahalilecer.book_store_project.mapper.CustomerMapper;
 import com.musahalilecer.book_store_project.model.Customer;
 import com.musahalilecer.book_store_project.repository.CustomerRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,9 @@ public class CustomerService {
     }
 
     // Delete a customer by ID
+  //  @Transactional
     public void deleteCustomer(long id) {
+        customerRepository.deleteFromBookCustomerById(id);
         customerRepository.deleteById(id);
     }
 }

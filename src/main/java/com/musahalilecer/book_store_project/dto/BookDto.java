@@ -19,4 +19,6 @@ public class BookDto {
     private Integer languageId;
     private Set<Integer> genreIds;
     private Set<Long> customerIds;
+
+
 }

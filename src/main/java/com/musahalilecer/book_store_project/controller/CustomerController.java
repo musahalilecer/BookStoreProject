@@ -8,19 +8,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/*
-git config --global user.email "you@example.com"
-  git config --global user.name "Your Name"
-
- */
-
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<CustomerDto>> getAllCustomers() {
         List<CustomerDto> customers = customerService.getCustomers();
         return ResponseEntity.ok(customers);
@@ -55,7 +49,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<CustomerDto> deleteCustomer(@PathVariable long id) {
+    public ResponseEntity<CustomerDto> deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomer(id);
         return ResponseEntity.ok().build();
     }

@@ -123,3 +123,5 @@ INSERT INTO book_customer (book_id, customer_id) VALUES
                                                      (1, 2), -- The Great Adventure - Purchased by janedoe
                                                      (2, 3), -- Mystery of the Lost City - Purchased by emilyj
                                                      (3, 1); -- Space Odyssey - Purchased by johndoe
+
+

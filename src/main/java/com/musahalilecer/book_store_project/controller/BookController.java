@@ -15,7 +15,7 @@ import java.util.List;
 public class BookController {
     private final BookService bookService;
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<BookDto>> getAllBooks() {
         List<BookDto> books = bookService.getAllBooks();
         return ResponseEntity.ok(books);
