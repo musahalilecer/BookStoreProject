@@ -2,6 +2,7 @@ package com.musahalilecer.book_store_project.service;
 
 import com.musahalilecer.book_store_project.dto.BookDto;
 import com.musahalilecer.book_store_project.mapper.BookMapper;
+import com.musahalilecer.book_store_project.mapper.BookMappers;
 import com.musahalilecer.book_store_project.model.*;
 import com.musahalilecer.book_store_project.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class BookService {
     private final LanguageRepository languageRepository;
     private final GenreRepository genreRepository;
     private final CustomerRepository customerRepository;
-    private final BookMapper bookMapper;
+    private final BookMappers bookMapper;
 
     public List<BookDto> getAllBooks() {
         return bookRepository.findAll()
@@ -56,7 +57,7 @@ public class BookService {
         Book existingBook = bookRepository.findById(id).orElseThrow(null);
 
         // Update simple fields using mapper
-        bookMapper.updateBookFromDto(bookDto, existingBook);
+    //    bookMapper.updateBookFromDto(bookDto, existingBook);
 
         // Update relationships
         setRelationships(existingBook, bookDto);
@@ -165,4 +166,19 @@ public class BookService {
         Book updatedBook = bookRepository.save(book);
         return bookMapper.toDto(updatedBook);
     }
+
+    public List<BookDto> findByTitle(String title) {
+        return bookRepository.findByTitle(title)
+                .stream()
+                .map(bookMapper::toDto)
+                .collect(Collectors.toList());
+
+    }
+    /*
+    public BookDto getBookById(Long id) {
+        return bookRepository.findById(id)
+                .map(bookMapper::toDto)
+                .orElseThrow(null);
+    }
+     */
 }

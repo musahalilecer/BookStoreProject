@@ -52,4 +52,10 @@ public class BookController {
         bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{title}")
+    public ResponseEntity<List<BookDto>> getBookByTitle(@PathVariable String title) {
+        List<BookDto> books = bookService.findByTitle(title);
+        return ResponseEntity.ok(books);
+    }
 }

@@ -20,4 +20,12 @@ public class BookDto {
     private Set<Integer> genreIds;
     private Set<Long> customerIds;
 
+
+    // other attributes
+    private Set<String> firstName;
+    private Set<String> lastName;
+
+    private Set<String> languageName;
+    private Set<String> genreNames;
+
 }
