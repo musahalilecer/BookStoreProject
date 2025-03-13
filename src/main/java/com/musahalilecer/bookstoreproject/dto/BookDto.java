@@ -95,7 +95,7 @@ public class BookDto {
 
     // ****************
 
-/*
+
     private String authorName;
 
     public String getLanguage() {
@@ -125,5 +125,5 @@ public class BookDto {
     private String language;
     private String genres;
 
- */
+
 }

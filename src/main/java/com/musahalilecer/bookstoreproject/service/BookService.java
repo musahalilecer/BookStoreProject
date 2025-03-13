@@ -5,7 +5,6 @@ import com.musahalilecer.bookstoreproject.mapper.BookMapper;
 import com.musahalilecer.bookstoreproject.model.*;
 import com.musahalilecer.bookstoreproject.repository.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,7 +40,29 @@ public class BookService {
 
     @Transactional
     public BookDto createBook(BookDto bookDto) {
+
+        Author author = authorRepository.findByName(bookDto.getAuthorName())
+                .orElseGet(() -> authorRepository.save(new Author(bookDto.getAuthorName())));
+
+        Language language = languageRepository.findByName(bookDto.getLanguage())
+                .orElseGet(() -> languageRepository.save(new Language(bookDto.getLanguage())));
+
+        Genre genre = genreRepository.findByName(bookDto.getGenres())
+                .orElseGet(() -> genreRepository.save(new Genre(bookDto.getGenres())));
+
+        Book book = new Book();
+        book.setTitle(bookDto.getTitle());
+        book.setAuthor(author);
+        book.setLanguage(language);
+        book.setGenres((Set<Genre>) genre);
+        book.setPrice(bookDto.getPrice());
+
+
+        return bookMapper.toDto(bookRepository.save(book));
+        //    return bookRepository.save(book);
+        // **********************
         // Convert DTO to entity
+        /*
         Book book = bookMapper.toEntity(bookDto);
 
         // Set relationships
@@ -50,6 +71,8 @@ public class BookService {
         // Save and return
         Book savedBook = bookRepository.save(book);
         return bookMapper.toDto(savedBook);
+
+         */
     }
 
     @Transactional

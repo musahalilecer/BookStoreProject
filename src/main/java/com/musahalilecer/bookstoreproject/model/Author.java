@@ -15,6 +15,9 @@ public class Author {
     @Column(name = "id")
     private Integer id;
 
+    public Author(String authorName) {
+    }
+
     public String getImage() {
         return image;
     }

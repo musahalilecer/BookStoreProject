@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public interface AuthorRepository extends JpaRepository<Author, Integer> {
 
+    Optional<Author> findByName(String firstName);
     /*
     @Query("SELECT a FROM Author a " +
             "LEFT JOIN FETCH a.books " +

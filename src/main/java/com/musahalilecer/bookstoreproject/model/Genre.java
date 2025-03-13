@@ -16,4 +16,7 @@ public class Genre {
     private Integer id;
     @Column(name = "Genre")
     private String genre;
+
+    public Genre(String genres) {
+    }
 }

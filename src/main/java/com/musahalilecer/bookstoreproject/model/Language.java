@@ -10,6 +10,9 @@ import lombok.*;
 @Getter
 @Setter
 public class Language {
+    public Language(String language) {
+    }
+
     public Integer getId() {
         return id;
     }
