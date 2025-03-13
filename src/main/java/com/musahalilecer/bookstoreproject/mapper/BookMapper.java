@@ -1,3 +1,4 @@
+/*
 package com.musahalilecer.bookstoreproject.mapper;
 
 import com.musahalilecer.bookstoreproject.dto.BookDto;
@@ -111,6 +112,8 @@ public interface BookMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateBookFromDto(BookDto dto, @MappingTarget Book entity);
 }
+
+ */
 
 
 
