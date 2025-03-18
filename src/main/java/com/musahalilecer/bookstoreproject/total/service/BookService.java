@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -41,30 +42,20 @@ public class BookService {
     @Transactional
     public BookDto createBook(BookDto bookDto) {
 
-        /*
-        Author author = authorRepository.findByfirstName(bookDto.getAuthorName())
-                .orElseGet(() -> authorRepository.save(new Author(bookDto.getAuthorName())));
+        Optional<Author> author = authorRepository.findById(bookDto.getAuthorId());
+        Optional<Language> language = languageRepository.findById(bookDto.getLanguageId());
 
-        Language language = languageRepository.findByLanguage(bookDto.getLanguage())
-                .orElseGet(() -> languageRepository.save(new Language(bookDto.getLanguage())));
 
-        Genre genre = genreRepository.findByGenre(bookDto.getGenres())
-                .orElseGet(() -> genreRepository.save(new Genre(bookDto.getGenres())));
-
-         */
-        Author author = authorRepository.findById(bookDto.getAuthorId()).orElseThrow(null);
-        Language language = languageRepository.findById(bookDto.getLanguageId()).orElseThrow(null);
 
 
         Book book = new Book();
         book.setTitle(bookDto.getTitle());
-        book.setAuthor(author);
-        book.setLanguage(language);
+        book.setAuthor(author.isEmpty() ? null : author.get());
+        book.setLanguage(language.isEmpty() ? null : language.get());
     //    book.setGenres((Set<Genre>) genre);
         book.setPrice(bookDto.getPrice());
         book.setPage(bookDto.getPage());
         book.setImage(bookDto.getImage());
-
 
         return bookMapper.toDto(bookRepository.save(book));
         //    return bookRepository.save(book);
@@ -85,15 +76,18 @@ public class BookService {
 
     @Transactional
     public BookDto updateBook(Long id, BookDto bookDto) {
-        Book existingBook = bookRepository.findById(id).orElseThrow(null);
+
+        Optional<Book> existingBook = bookRepository.findById(id);
 
         // Update simple fields using mapper
     //    bookMapper.updateBookFromDto(bookDto, existingBook);
 
         // Update relationships
-        setRelationships(existingBook, bookDto);
+    //    setRelationships(existingBook, bookDto);
 
-        Book updatedBook = bookRepository.save(existingBook);
+
+
+        Book updatedBook = bookRepository.save(existingBook.isEmpty() ? null : existingBook.get());
         return bookMapper.toDto(updatedBook);
     }
 
